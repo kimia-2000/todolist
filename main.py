@@ -1,4 +1,4 @@
-# import argparse
+import argparse
 
 
 tasks=[]
@@ -30,8 +30,8 @@ def add_task(tasks,task):
 
 
 #============================================================================================================
-def delet_task(tasks,index):
-    """delet task from list"""
+def delete_task(tasks,index):
+    """delete task from list"""
     tasks.pop(index)
 
 
@@ -46,13 +46,15 @@ def show_task(tasks):
 
 
 #============================================================================================================
+parser=argparse.ArgumentParser()
+subparsers=parser.add_subparsers(dest="command" , required=True)
 
+add_parser=subparsers.add_parser("add")
+add_parser.add_argument("task")
 
-#فراخوانی
-tasks=load_taskes()
-for task in tasks:
-    print(task)
+list_parser=subparsers.add_parser("list")
 
-show_task(tasks)
+delete_parser=subparsers.add_parser("delet")
+delete_parser.add_argument("index",type=int)
 
-
+args=parser.parse_args()
