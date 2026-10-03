@@ -15,11 +15,11 @@ def load_taskes():
 
 #===========================================================================================================
 
-def save_taskes():
+def save_taskes(tasks):
     """save taskes from list to file"""
     with open(file_path,"w",encoding="utf-8") as f:
         for task in tasks:
-            f.write(task)
+            f.write(task+"\n")
 
 #===========================================================================================================
 
@@ -54,7 +54,21 @@ add_parser.add_argument("task")
 
 list_parser=subparsers.add_parser("list")
 
-delete_parser=subparsers.add_parser("delet")
+delete_parser=subparsers.add_parser("delete")
 delete_parser.add_argument("index",type=int)
 
 args=parser.parse_args()
+
+
+
+
+tasks=load_taskes()
+
+if args.command=="add":
+    add_task(tasks,args.task)
+    save_taskes(tasks)
+elif args.command=="list":
+    show_task(tasks)
+elif args.command=="delete":
+     delete_task(tasks,args.index)
+     save_taskes(tasks)
